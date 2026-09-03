@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Foodgoose</title>
+<style>
+html,body{margin:0;background:#6CED69;font-family:-apple-system,sans-serif}
+.wrap{max-width:430px;margin:0 auto;padding:20px 18px 32px;min-height:100vh}
+h1{font-size:28px;line-height:1.15;margin:18px 0 14px}
+.card{background:#fff;border-radius:28px;padding:16px 14px 18px}
+.goal{color:#9AA09A;font-size:15px;margin:0 0 8px}
+.plot{position:relative;height:268px}
+svg{width:100%;height:210px;display:block;margin-top:28px}
+.lbl{position:absolute;font-size:12px;font-weight:700;line-height:1.2}
+.pill{position:absolute;z-index:2;border-radius:16px;padding:6px 12px;font-size:13px;font-weight:700}
+.pg{background:#D8F8B8;color:#1F8A2E}
+.po{background:#FFE3C8;color:#E86A2D}
+.row{display:flex;gap:8px;margin:0 0 12px}
+.btn{border:0;background:#111;color:#fff;border-radius:16px;padding:10px 14px;font-weight:700}
+.btn.off{background:#fff;color:#111}
+.foot{border-top:1px solid #E5E7EB;margin-top:10px;padding-top:14px;font-size:15px}
+.note{margin:16px 0 0;font-size:13px;opacity:.8}
+</style></head><body>
+<div class="wrap">
+<div class="row">
+<button class="btn" id="lose" onclick="setG(false)">Lose weight</button>
+<button class="btn off" id="gain" onclick="setG(true)">Gain weight</button>
+</div>
+<h1>Foodgoose delivers long-term results</h1>
+<div class="card" id="card"></div>
+<p class="note">Это публичное превью экрана графика из текущего Foodgoose. Полное приложение — онбординг, план и дневник — в приватном репозитории.</p>
+</div>
+<script>
+let gain=false;
+function setG(v){gain=v;document.getElementById('lose').className='btn'+(v?' off':'');document.getElementById('gain').className='btn'+(v?'':' off');draw();}
+function draw(){
+ const green=gain?'M 36 168 C 120 168 160 150 200 100 C 236 56 280 40 318 36':'M 36 48 C 120 48 160 70 200 118 C 236 160 280 172 318 176';
+ const orange=gain?'M 36 168 C 100 164 150 158 200 150 C 250 142 290 146 318 148':'M 36 48 C 100 52 150 44 200 56 C 250 50 290 62 318 68';
+ const gd=gain?[318,36]:[318,176], od=gain?[318,148]:[318,68], st=gain?[36,168]:[36,48];
+ document.getElementById('card').innerHTML='<div class="goal">'+(gain?'Gain weight':'Lose weight')+'</div><div class="plot"><div class="pill pg" style="'+(gain?'right:12px;top:0':'left:8px;bottom:36px')+'">Using Foodgoose</div><div class="pill po" style="'+(gain?'right:8px;bottom:44px':'right:8px;top:0')+'">Using other methods</div><svg viewBox="0 0 360 210"><path d="'+orange+'" fill="none" stroke="#FF7A45" stroke-width="3.5" stroke-dasharray="7 8" stroke-linecap="round"/><path d="'+green+'" fill="none" stroke="#34C759" stroke-width="5.5" stroke-linecap="round"/><circle cx="'+st[0]+'" cy="'+st[1]+'" r="8" fill="#fff" stroke="#111" stroke-width="5"/><circle cx="'+od[0]+'" cy="'+od[1]+'" r="6.5" fill="#FF7A45"/><circle cx="'+gd[0]+'" cy="'+gd[1]+'" r="8" fill="#34C759"/></svg><div class="lbl" style="'+(gain?'left:44px;bottom:56px':'left:44px;top:86px')+'">Weight<br>now</div><div class="lbl" style="'+(gain?'right:6px;top:34px;text-align:right':'right:6px;bottom:6px;text-align:right')+'">Weight<br>soon</div></div><div class="foot"><b>81%</b> of Foodgoose users maintain their desired weight even after 6 months</div>';
+}
+draw();
+</script></body></html>
